@@ -1,5 +1,6 @@
 GoLang MIME Types Utilities
 ===========================
+> This library provides functions to work with MIME types (also known as "media types").
 
 [![License][license-image]][license-link]
 

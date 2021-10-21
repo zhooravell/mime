@@ -6,8 +6,10 @@ import (
 )
 
 var (
-	ErrBlankMimeType = errors.New("mine type should not be blank")
-	ErrBlankExt      = errors.New("extension should not be blank")
+	ErrBlankMimeType      = errors.New("mine type should not be blank")
+	ErrBlankExt           = errors.New("extension should not be blank")
+	ErrMimeTypesNotFound  = errors.New("mine types not found")
+	ErrExtensionsNotFound = errors.New("extensions not found")
 )
 
 // GetExtensions Gets the extensions for the given MIME type.
@@ -19,17 +21,26 @@ func GetExtensions(mimeType string) ([]string, error) {
 		return nil, ErrBlankMimeType
 	}
 
-	return nil, nil
+	if e, ok := mimeTypesExtensions[mimeType]; ok {
+		return e, nil
+	}
+
+	return nil, ErrExtensionsNotFound
 }
 
 // GetMimeTypes Gets the MIME types for the given extension.
 // Return a slice of MIME types (first one is the preferred one)
 func GetMimeTypes(ext string) ([]string, error) {
 	ext = strings.TrimSpace(ext)
+	ext = strings.TrimPrefix(ext, ".")
 
 	if ext == "" {
 		return nil, ErrBlankExt
 	}
 
-	return nil, nil
+	if mt, ok := extensionMimeTypes[ext]; ok {
+		return mt, nil
+	}
+
+	return nil, ErrMimeTypesNotFound
 }
