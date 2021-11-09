@@ -11,7 +11,7 @@ import (
 	"text/template"
 )
 
-const mimeDBVersion = "1.50.0"
+const mimeDBVersion = "1.51.0"
 
 var mimeTypesExtensionsTpl = `package mime
 
