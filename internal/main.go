@@ -11,7 +11,7 @@ import (
 	"text/template"
 )
 
-const mimeDBVersion = "1.51.0"
+const mimeDBVersion = "1.52.0"
 
 var mimeTypesExtensionsTpl = `package mime
 
@@ -63,7 +63,9 @@ func main() {
 	}
 
 	t := template.Must(template.New("tpl").Parse(mimeTypesExtensionsTpl))
-	t.Execute(os.Stdout, data)
+	if err := t.Execute(os.Stdout, data); err != nil {
+		fmt.Println(err)
+	}
 }
 
 type mimiDbData struct {
